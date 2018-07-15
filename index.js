@@ -7,8 +7,8 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const
 	express = require('express'),
 	bodyParser = require('body-parser'),
-	{ convert } = require('node_modules/convert-svg-to-png'),
-	converters = require('converters.js');
+	{ convert } = require('node_modules\convert-svg-to-png'),
+	converters = require('converters');
 	app = express().use(bodyParser.json()); // creates express http server
 
 // Sets server port and logs message on success
