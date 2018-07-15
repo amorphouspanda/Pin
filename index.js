@@ -82,7 +82,7 @@ app.post('/webhook/', (req, res) => {
 				res.send(pngBuffer);
 				
 				callSendAPI(sender_psid, url);
-				// callSendAPI(sender_psid, {"text": `You sent the message: "${received_message.text}". Now send me an image!`});
+				callSendAPI(sender_psid, {"text": `You sent the message: "${received_message.text}". Good luck with the rest <3`});
 			}
 		});
 
@@ -98,20 +98,13 @@ app.post('/webhook/', (req, res) => {
 
 // converts to png
 function inputToPng(received_message) {
-
-	let response;
-
 	// Check if the message contains text
 	if (received_message.text) {    
-
-		// Create the payload for a basic text message
-		response = {
-			let input = ${received_message.text};
-			let svg = texToSvgBuffer(input);
-			let png = convert(svg);
-			
-			return png;
-		}
+		let unformatted = ${received_message.text};
+		let svg = texToSvgBuffer(input);
+		let png = convert(svg);
+		
+		return png;
 	}
 }
 
