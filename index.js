@@ -71,6 +71,7 @@ app.post('/webhook/', (req, res) => {
 			// Check if the event is a message or postback and
 			// pass the event to the appropriate handler function
 			if (webhook_event.message) {		// LOTS OF QUESTIONS
+			/*
 				let pngBuffer = inputToPng(sender_psid, webhook_event.message);  
 				let url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
 				
@@ -82,6 +83,8 @@ app.post('/webhook/', (req, res) => {
 				res.send(pngBuffer);
 				
 				callSendAPI(sender_psid, url);
+			*/	
+				
 				callSendAPI(sender_psid, {"text": `You sent the message: "${received_message.text}". Good luck with the rest <3`});
 			}
 		});
