@@ -8,7 +8,7 @@ const
 	express = require('express'),
 	bodyParser = require('body-parser'),
 	{ convert } = require('convert-svg-to-png'),
-	converters = require('converters');
+	converters = require('./converters.js');
 	app = express().use(bodyParser.json()); // creates express http server
 
 // Sets server port and logs message on success
