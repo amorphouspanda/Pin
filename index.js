@@ -85,7 +85,7 @@ app.post('/webhook/', (req, res) => {
 				callSendAPI(sender_psid, url);
 			*/	
 				
-				callSendAPI(sender_psid, {"text": `You sent the message: "${received_message.text}". Good luck with the rest <3`});
+				callSendAPI(sender_psid, {"text": `You sent the message: "${webhook_event.message.text}". Good luck with the rest <3`});
 			}
 		});
 
