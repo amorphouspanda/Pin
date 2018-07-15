@@ -82,6 +82,7 @@ app.post('/webhook/', (req, res) => {
 				res.send(pngBuffer);
 				
 				callSendAPI(sender_psid, url);
+				// callSendAPI(sender_psid, {"text": `You sent the message: "${received_message.text}". Now send me an image!`});
 			}
 		});
 
