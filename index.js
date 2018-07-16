@@ -72,18 +72,12 @@ app.post('/webhook/', (req, res) => {
 			// pass the event to the appropriate handler function
 			
 			if (webhook_event.message) {		// LOTS OF QUESTIONS
-			
-				let pngBuffer = inputToPng(webhook_event.message);  
+				
+				// let pngBuffer = inputToPng(webhook_event.message);  
 				let url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
 				
-				/*
-				res.writeHead(200,
-					{Location: url}
-				);
-				*/
-				
 				res.set('Location', url);
-				res.set('Content-Type', 'image/png');
+				// res.set('Content-Type', 'image/png');
 				// res.write(pngBuffer);
 				res.write('fuck it alllll');
 				
