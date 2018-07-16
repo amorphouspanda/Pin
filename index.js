@@ -56,6 +56,8 @@ app.post('/webhook/', (req, res) => {
 
 	// Checks this is an event from a page subscription
 	if (body.object === 'page') {
+		
+		let pngBuffer;
 
 		// Iterates over each entry - there may be multiple if batched
 		body.entry.forEach(function(entry) {
@@ -70,8 +72,6 @@ app.post('/webhook/', (req, res) => {
 
 			// Check if the event is a message or postback and
 			// pass the event to the appropriate handler function
-			
-			let pngBuffer;
 			
 			if (webhook_event.message) {		// LOTS OF QUESTIONS
 			
