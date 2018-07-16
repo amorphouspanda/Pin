@@ -74,16 +74,17 @@ app.post('/webhook/', (req, res) => {
 			
 				let pngBuffer = inputToPng(sender_psid, webhook_event.message);  
 				let url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
-				
+				/*
 				res.writeHead(200,
 					{Location: url}
 				);
+				*/
 				
 				res.set('Content-Type', 'image/png');
+				res.set('Location', url);
 				res.send(pngBuffer);
 				
 				callSendAPI(sender_psid, url);
-			
 				
 				callSendAPI(sender_psid, {"text": `You sent the message: "${webhook_event.message.text}". Good luck with the rest <3`});
 			}
