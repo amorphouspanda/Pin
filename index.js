@@ -84,7 +84,7 @@ app.post('/webhook/', (req, res) => {
 				// res.write('fuck it alllll');
 				
 				res.location(url);
-				res.set('Content-Type, 'text/html');
+				res.set('Content-Type', 'text/html');
 				res.write('sigh finally overrrr');
 				
 				callSendAPI(sender_psid, {"text": url});
