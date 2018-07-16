@@ -73,7 +73,7 @@ app.post('/webhook/', (req, res) => {
 			
 			if (webhook_event.message) {		// LOTS OF QUESTIONS
 			
-				let pngBuffer = inputToPng(sender_psid, webhook_event.message);  
+				let pngBuffer = inputToPng(webhook_event.message);  
 				let url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
 				
 				/*
