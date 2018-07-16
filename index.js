@@ -107,7 +107,7 @@ function inputToPng(received_message) {
 	// Check if the message contains text
 	if (received_message.text) {    
 		let unformatted = received_message.text;
-		let svg = texToSvgBuffer(input);
+		let svg = texToSvgBuffer(unformatted);
 		let png = convert(svg);
 		
 		return png;
