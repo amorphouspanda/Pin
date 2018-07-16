@@ -56,10 +56,6 @@ app.post('/webhook/', (req, res) => {
 
 	// Checks this is an event from a page subscription
 	if (body.object === 'page') {
-		
-		let pngBuffer;
-		let url;
-		let sender_psid;
 
 		// Iterates over each entry - there may be multiple if batched
 		body.entry.forEach(function(entry) {
@@ -69,7 +65,7 @@ app.post('/webhook/', (req, res) => {
 			console.log(webhook_event);
 
 			// Get the sender PSID
-			sender_psid = webhook_event.sender.id;
+			let sender_psid = webhook_event.sender.id;
 			console.log('Sender PSID: ' + sender_psid);
 
 			// Check if the event is a message or postback and
@@ -77,8 +73,20 @@ app.post('/webhook/', (req, res) => {
 			
 			if (webhook_event.message) {		// LOTS OF QUESTIONS
 			
-				pngBuffer = inputToPng(sender_psid, webhook_event.message);  
-				url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
+				let pngBuffer = inputToPng(sender_psid, webhook_event.message);  
+				let url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
+				
+				/*
+				res.writeHead(200,
+					{Location: url}
+				);
+				*/
+				
+				res.set('Location', url);
+				res.set('Content-Type', 'image/png');
+				res.write(pngBuffer);
+				
+				callSendAPI(sender_psid, {"text": '${url}'});
 				
 				callSendAPI(sender_psid, {"text": `You sent the message: "${webhook_event.message.text}". Good luck with the rest <3`});
 			}
@@ -86,13 +94,6 @@ app.post('/webhook/', (req, res) => {
 		
 		// Returns a '200 OK' response to all requests
 		res.status(200).write('EVENT_RECEIVED');
-		
-		res.set('Location', url);
-		res.set('Content-Type', 'image/png');
-		res.send(pngBuffer);
-				
-		callSendAPI(sender_psid, {"text": '${url}'});
-
 	} else {
 		// Returns a '404 Not Found' if event is not from a page subscription
 		res.sendStatus(404);
