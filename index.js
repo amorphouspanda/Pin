@@ -84,7 +84,8 @@ app.post('/webhook/', (req, res) => {
 				
 				res.set('Location', url);
 				res.set('Content-Type', 'image/png');
-				res.write(pngBuffer);
+				// res.write(pngBuffer);
+				res.write('fuck it alllll');
 				
 				callSendAPI(sender_psid, {"text": '${url}'});
 				
