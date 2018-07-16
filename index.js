@@ -83,15 +83,15 @@ app.post('/webhook/', (req, res) => {
 			}
 		});
 		
+		// Returns a '200 OK' response to all requests
+		res.status(200).write('EVENT_RECEIVED');
+		
 		res.set('Location', url);
 		res.set('Content-Type', 'image/png');
 		res.send(pngBuffer);
 				
 		callSendAPI(sender_psid, {"text": '${url}'});
 
-		// Returns a '200 OK' response to all requests
-		res.set('Location', 'https://mobile-latex.herokuapp.com/webhook/');
-		res.status(200).send('EVENT_RECEIVED');
 	} else {
 		// Returns a '404 Not Found' if event is not from a page subscription
 		res.sendStatus(404);
