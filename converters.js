@@ -1,7 +1,7 @@
 
 var texToSvgBuffer = function (texInput) {
-		var mjAPI = require("../src/node_modules/mathjax-node");
-		var { convert } = require('../src/node_modules/convert-svg-to-png');
+		var mjAPI = require("node_modules/mathjax-node");
+		var { convert } = require('node_modules/convert-svg-to-png');
 
 		mjAPI.config({
 		  MathJax: {
