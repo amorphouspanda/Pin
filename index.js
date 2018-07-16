@@ -76,10 +76,16 @@ app.post('/webhook/', (req, res) => {
 				// let pngBuffer = inputToPng(webhook_event.message);  
 				let url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
 				
-				res.set('Location', url);
+				// res.set('Location', url);
 				// res.set('Content-Type', 'image/png');
 				// res.write(pngBuffer);
-				res.write('fuck it alllll');
+				
+				// res.set('Content-Type', 'text/html');
+				// res.write('fuck it alllll');
+				
+				res.location(url);
+				res.set('Content-Type, 'text/html');
+				res.write('sigh finally overrrr');
 				
 				callSendAPI(sender_psid, {"text": url});
 				
@@ -88,7 +94,8 @@ app.post('/webhook/', (req, res) => {
 		});
 		
 		// Returns a '200 OK' response to all requests
-		res.set('Location', 'https://mobile-latex.herokuapp.com/webhook/');
+		// res.set('Location', 'https://mobile-latex.herokuapp.com/webhook/');
+		res.location('https://mobile-latex.herokuapp.com/webhook/');
 		res.status(200).send('EVENT_RECEIVED');
 	} else {
 		// Returns a '404 Not Found' if event is not from a page subscription
@@ -96,7 +103,6 @@ app.post('/webhook/', (req, res) => {
 	}
 
 });
-
 
 // converts to png
 function inputToPng(received_message) {
