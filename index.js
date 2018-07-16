@@ -59,6 +59,7 @@ app.post('/webhook/', (req, res) => {
 		
 		let pngBuffer;
 		let url;
+		let sender_psid;
 
 		// Iterates over each entry - there may be multiple if batched
 		body.entry.forEach(function(entry) {
@@ -68,7 +69,7 @@ app.post('/webhook/', (req, res) => {
 			console.log(webhook_event);
 
 			// Get the sender PSID
-			let sender_psid = webhook_event.sender.id;
+			sender_psid = webhook_event.sender.id;
 			console.log('Sender PSID: ' + sender_psid);
 
 			// Check if the event is a message or postback and
