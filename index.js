@@ -6,9 +6,8 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const
 	express = require('express'),
 	bodyParser = require('body-parser'),
-	{ convert } = require('convert-svg-to-png'),
-	converters = require('./converters.js'),
-	app = express().use(bodyParser.json()); 
+	app = express().use(bodyParser.json()),
+	convert = require('./converters.js');
 
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -54,29 +53,15 @@ app.post('/webhook/', (req, res) => {
 			let sender_psid = webhook_event.sender.id;
 			console.log('Sender PSID: ' + sender_psid);
 			
-			if (webhook_event.message) {		// LOTS OF QUESTIONS
+			if (webhook_event.message) {
 				
-				// let pngBuffer = inputToPng(webhook_event.message);  
-				let url = 'https://mobile-latex.herokuapp.com/' + sender_psid + '/';
-				
-				// res.set('Location', url);
-				// res.set('Content-Type', 'image/png');
-				// res.write(pngBuffer);
-				// res.set('Content-Type', 'text/html');
-				// res.write('sighhhh');
-				
-				res.location(url);
-				res.set('Content-Type', 'text/html');
-				res.write('sigh finally overrrr');
+				let url = convert(texInput);
 				
 				callSendAPI(sender_psid, {"text": url});
-				
 				callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}" - Good luck with the rest <3`});
 			}
 		});
 		
-		// res.set('Location', 'https://mobile-latex.herokuapp.com/webhook/');
-		res.location('https://mobile-latex.herokuapp.com/webhook/');
 		res.status(200).send('EVENT_RECEIVED');
 		
 	} else {

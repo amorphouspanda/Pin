@@ -1,34 +1,46 @@
 
 var texToSvgBuffer = function (texInput) {
-		var mjAPI = require("node_modules/mathjax-node");
-		var { convert } = require('node_modules/convert-svg-to-png');
+	let mjAPI = require("mathjax-node");
+	let cloudinary = require("cloudinary");
+	let svg2png = require("svg2png");
 
-		mjAPI.config({
-		  MathJax: {
-			// traditional MathJax configuration  
+	cloudinary.config({ 
+		cloud_name: 'mobile-tex', 
+		api_key: '464297269935231', 
+		api_secret: 'qsrU48U9xhYBQyZU4wB_-UdolzI' 
+	});
+
+	mjAPI.config({
+		MathJax: { 
 			jax: ["input/TeX","output/SVG"],
 			extensions: ["tex2jax.js"],
 			TeX: {
-			  extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+				extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
 			}
-		  }
-		});
-		mjAPI.start();
+		}
+	});
+	mjAPI.start();
+	
+	let url = "placeholder";
+	
+	mjAPI.typeset({
+		math: texInput,
+		format: "TeX", 
+		svg: true,     
+	}, function (rendered) {
+		if (!rendered.errors) { 
+			let svg = rendered.svg;
 
-		mjAPI.typeset({
-		  math: texInput,
-		  format: "TeX", 
-		  svg: true,     
-		}, function (result) {
-		  if (!result.errors) {
-			//const png = convert(result.svg);
-			//console.log(png);
-			
-			//console.log(data.svg);
-			
-			return data.svg;
-		  }
-		});
-	};
+			svg2png(svg, {width: 500, height: 300}).then(png => 
+				cloudinary.v2.uploader.upload_stream(function(error, result) {
+					url = result.secure_url;
+				})
+				.end(png)
+			);
+		}
+	});
+	
+	return url;
+};
 	
 module.exports = texToSvgBuffer;
