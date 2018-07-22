@@ -55,7 +55,7 @@ app.post('/webhook/', (req, res) => {
 			
 			if (webhook_event.message) {
 				
-				let url = convert(texInput);
+				let url = convert(webhook_event.message.text);
 				
 				callSendAPI(sender_psid, {"text": url});
 				callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}" - Good luck with the rest <3`});
