@@ -56,7 +56,7 @@ app.post('/webhook/', (req, res) => {
 			if (webhook_event.message) {
 				
 				convert(webhook_event.message.text).then((url) => {
-					response = {
+					let response = {
 						"attachment": {
 							"type": "template",
 							"payload": {
