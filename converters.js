@@ -22,7 +22,7 @@ var texToSvgBuffer = function (texInput) {
 	
 	let promise = new Promise((resolve, reject) => {
 		mjAPI.typeset({
-			math: yourMath,
+			math: texInput,
 			format: "TeX", 
 			svg: true,     
 		}, rendered => {
