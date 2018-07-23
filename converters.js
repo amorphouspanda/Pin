@@ -33,7 +33,7 @@ var texToSvgBuffer = function (texInput) {
 
 			svg2png(svg, {width: 500, height: 300}).then(png => 
 				cloudinary.v2.uploader.upload_stream(function(error, result) {
-					url = result.secure_url;
+					url = result.secure_url;	// issue: this isn't savingggg, url stays as "placeholder"
 				})
 				.end(png)
 			);

@@ -70,16 +70,6 @@ app.post('/webhook/', (req, res) => {
 
 });
 
-function inputToPng(received_message) {
-	if (received_message.text) {    
-		let unformatted = received_message.text;
-		let svg = converters(unformatted);
-		let png = convert(svg);
-		
-		return png;
-	}
-}
-
 function callSendAPI(sender_psid, response) {
 	let request_body = {
 		"recipient": {
