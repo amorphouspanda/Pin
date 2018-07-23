@@ -62,6 +62,7 @@ app.post('/webhook/', (req, res) => {
 							"payload": {
 								"template_type": "generic",
 								"elements": [{
+									"title": `in LaTeX`,
 									"image_url": url,									
 								}]
 							}
