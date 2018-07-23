@@ -72,7 +72,7 @@ app.post('/webhook/', (req, res) => {
 					callSendAPI(sender_psid, response);
 				});
 				
-				callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}"`});
+				//callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}"`});
 			}
 		});
 		
