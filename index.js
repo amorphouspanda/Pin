@@ -56,7 +56,19 @@ app.post('/webhook/', (req, res) => {
 			if (webhook_event.message) {
 				
 				convert(webhook_event.message.text).then((url) => {
-					callSendAPI(sender_psid, {"text": url});
+					response = {
+						"attachment": {
+							"type": "template",
+							"payload": {
+								"template_type": "generic",
+								"elements": [{
+									"image_url": url,									
+								}]
+							}
+						}
+					}
+					
+					callSendAPI(sender_psid, response);
 				});
 				
 				callSendAPI(sender_psid, {"text": `original input: "${webhook_event.message.text}"`});
