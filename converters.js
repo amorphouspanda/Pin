@@ -1,4 +1,3 @@
-
 var texToSvgBuffer = function (texInput) {
 	let mjAPI = require("mathjax-node");
 	let cloudinary = require("cloudinary");
@@ -21,26 +20,26 @@ var texToSvgBuffer = function (texInput) {
 	});
 	mjAPI.start();
 	
-	let url = "placeholder";
-	
-	mjAPI.typeset({
-		math: texInput,
-		format: "TeX", 
-		svg: true,     
-	}, function (rendered) {
-		if (!rendered.errors) { 
-			let svg = rendered.svg;
-
-			svg2png(svg, {width: 500, height: 300}).then(png => 
-				cloudinary.v2.uploader.upload_stream(function(error, result) {
-					url = result.secure_url;	// issue: this isn't savingggg, url stays as "placeholder"
-				})
-				.end(png)
-			);
-		}
+	let promise = new Promise((resolve, reject) => {
+		mjAPI.typeset({
+			math: yourMath,
+			format: "TeX", 
+			svg: true,     
+		}, rendered => {
+			if (!rendered.errors) { 
+				let svg = rendered.svg;
+				
+				svg2png(svg, {width: 500, height: 300}).then(png => 
+					cloudinary.v2.uploader.upload_stream((error, result) => {
+						resolve(result.secure_url);
+					})
+					.end(png)
+				);
+			}
+		});
 	});
 	
-	return url;
+	return promise;
 };
 	
 module.exports = texToSvgBuffer;

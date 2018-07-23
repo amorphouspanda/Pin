@@ -55,10 +55,11 @@ app.post('/webhook/', (req, res) => {
 			
 			if (webhook_event.message) {
 				
-				let url = convert(webhook_event.message.text);
+				convert(webhook_event.message.text).then((url) => {
+					callSendAPI(sender_psid, {"text": url});
+				});
 				
-				callSendAPI(sender_psid, {"text": url});
-				callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}" - Good luck with the rest <3`});
+				callSendAPI(sender_psid, {"text": `original input: "${webhook_event.message.text}"`});
 			}
 		});
 		
@@ -73,7 +74,7 @@ app.post('/webhook/', (req, res) => {
 function callSendAPI(sender_psid, response) {
 	let request_body = {
 		"recipient": {
-		  "id": sender_psid
+			"id": sender_psid
 		},
 		"message": response
 	}
