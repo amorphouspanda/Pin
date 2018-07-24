@@ -55,25 +55,25 @@ app.post('/webhook/', (req, res) => {
 			
 			if (webhook_event.message) {
 				
-				let promise = new Promise((resolve, reject) => {
-					convert(webhook_event.message.text).then(result => {
-						let response = {
-							"attachment": {
-								"type": "image",
-								"payload": {
-									"url": result.secure_url,
-									"is_reusable": true
-								}
+				convert(webhook_event.message.text).then(result => {
+					let response = {
+						"attachment": {
+							"type": "image",
+							"payload": {
+								"url": result.secure_url,
+								"is_reusable": true
 							}
 						}
-						
+					}
+					
+					let promise = new Promise((resolve, reject) => {
 						callSendAPI(sender_psid, response);
 						resolve(result.public_id);
 					});
-				});
-				
-				promise.then(public_id => {
-					cloudinary.v2.uploader.destroy(public_id);
+					
+					promise.then(public_id => {
+						cloudinary.v2.uploader.destroy(public_id);
+					});
 				});
 				
 				//callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}"`});
