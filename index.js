@@ -67,7 +67,7 @@ app.post('/webhook/', (req, res) => {
 					}
 					
 					callSendAPI(sender_psid, response).then(function() {
-						cloudinary.v2.uploader.destroy(public_id);
+						cloudinary.v2.uploader.destroy(result.public_id);
 					});
 				});
 				
