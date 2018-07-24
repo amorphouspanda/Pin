@@ -58,13 +58,10 @@ app.post('/webhook/', (req, res) => {
 				convert(webhook_event.message.text).then((url) => {
 					let response = {
 						"attachment": {
-							"type": "template",
+							"type": "image",
 							"payload": {
-								"template_type": "generic",
-								"elements": [{
-									"title": `in LaTeX`,
-									"image_url": url,									
-								}]
+								"url": url,
+								"is_reusable": true
 							}
 						}
 					}
