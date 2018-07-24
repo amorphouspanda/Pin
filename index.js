@@ -66,7 +66,11 @@ app.post('/webhook/', (req, res) => {
 						}
 					}
 					
-					callSendAPI(sender_psid, response, result.public_id);
+					callSendAPI(sender_psid, response);
+					
+					setTimeout(function() {
+						cloudinary.v2.uploader.destroy(result.public_id);
+					}, 10000)
 				});
 				
 				//callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}"`});
@@ -81,7 +85,7 @@ app.post('/webhook/', (req, res) => {
 
 });
 
-function callSendAPI(sender_psid, response, public_id) {
+function callSendAPI(sender_psid, response) {
 	let request_body = {
 		"recipient": {
 			"id": sender_psid
@@ -101,6 +105,4 @@ function callSendAPI(sender_psid, response, public_id) {
 			console.error("Unable to send message:" + err);
 		}
 	});
-
-	cloudinary.v2.uploader.destroy(public_id);
 }
