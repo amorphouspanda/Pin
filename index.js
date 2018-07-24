@@ -1,13 +1,13 @@
 'use strict';
 
-const request = require('request');
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-
 const
 	express = require('express'),
+	request = require('request'),
 	bodyParser = require('body-parser'),
 	app = express().use(bodyParser.json()),
-	convert = require('./converters.js');
+	convert = require('./converters.js'),
+	cloudinary = require("cloudinary"),
+	PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
