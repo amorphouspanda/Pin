@@ -3,12 +3,6 @@ var texToSvgBuffer = function (texInput) {
 	let cloudinary = require("cloudinary");
 	let svg2png = require("svg2png");
 
-	cloudinary.config({ 
-		cloud_name: 'mobile-tex', 
-		api_key: '464297269935231', 
-		api_secret: 'qsrU48U9xhYBQyZU4wB_-UdolzI' 
-	});
-
 	mjAPI.config({
 		MathJax: { 
 			jax: ["input/TeX","output/SVG"],

@@ -67,6 +67,7 @@ app.post('/webhook/', (req, res) => {
 					}
 					
 					callSendAPI(sender_psid, response);
+					//destroy cloudinary image here
 				});
 				
 				//callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}"`});
