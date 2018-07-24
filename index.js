@@ -66,9 +66,7 @@ app.post('/webhook/', (req, res) => {
 						}
 					}
 					
-					callSendAPI(sender_psid, response).then(function() {
-						cloudinary.v2.uploader.destroy(result.public_id);
-					});
+					callSendAPI(sender_psid, response, result.public_id);
 				});
 				
 				//callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}"`});
@@ -83,7 +81,7 @@ app.post('/webhook/', (req, res) => {
 
 });
 
-function callSendAPI(sender_psid, response) {
+function callSendAPI(sender_psid, response, public_id) {
 	let request_body = {
 		"recipient": {
 			"id": sender_psid
@@ -91,22 +89,18 @@ function callSendAPI(sender_psid, response) {
 		"message": response
 	}
 	
-	let promise = new Promise((resolve, reject) => {
-		request({
-			"url": "https://graph.facebook.com/v2.6/me/messages",
-			"qs": { "access_token": PAGE_ACCESS_TOKEN },
-			"method": "POST",
-			"json": request_body
-		}, (err, res, body) => {
-			if (!err) {
-				console.log('message sent!')
-			} else {
-				console.error("Unable to send message:" + err);
-			}
-		});
-		
-		resolve();
+	request({
+		"url": "https://graph.facebook.com/v2.6/me/messages",
+		"qs": { "access_token": PAGE_ACCESS_TOKEN },
+		"method": "POST",
+		"json": request_body
+	}, (err, res, body) => {
+		if (!err) {
+			console.log('message sent!')
+		} else {
+			console.error("Unable to send message:" + err);
+		}
 	});
-	
-	return promise;
+
+	cloudinary.v2.uploader.destroy(public_id);
 }
