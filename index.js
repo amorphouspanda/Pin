@@ -55,19 +55,19 @@ app.post('/webhook/', (req, res) => {
 			
 			if (webhook_event.message) {
 				
-				convert(webhook_event.message.text).then((url) => {
+				convert(webhook_event.message.text).then(result => {
 					let response = {
 						"attachment": {
 							"type": "image",
 							"payload": {
-								"url": url,
+								"url": result.secure_url,
 								"is_reusable": true
 							}
 						}
 					}
 					
 					callSendAPI(sender_psid, response);
-					//destroy cloudinary image here
+					cloudinary.v2.uploader.destroy(result.public_id);
 				});
 				
 				//callSendAPI(sender_psid, {"text": `input: "${webhook_event.message.text}"`});

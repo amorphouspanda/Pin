@@ -25,7 +25,7 @@ var texToSvgBuffer = function (texInput) {
 				
 				svg2png(svg, {width: 500, height: 300}).then(png => 
 					cloudinary.v2.uploader.upload_stream((error, result) => {
-						resolve(result.secure_url);
+						resolve(result);
 					})
 					.end(png)
 				);
